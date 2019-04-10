@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment                                          
+metadata:
+  name: serkohelloworld-blue
+spec:
+  replicas: 2                                             
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate                                   
+    rollingUpdate: 
+      maxUnavailable: 1                                   
+      maxSurge: 1                                        
+  template:                                               
+    metadata:
+      labels:
+        app: serkohelloworld-blue                                  
+    spec:
+      containers:
+        - image: localhost:32000/serko_helloworld
+          imagePullPolicy: Always                         
+          name: serkohelloworld
+          ports:
+            - containerPort: 5000
